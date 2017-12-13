@@ -1,8 +1,11 @@
 [package]
 authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 description = "Print the symbols that are imported in and exported from a wasm file."
+keywords = ["symbol", "wasm", "nm"]
 license = "Apache-2.0/MIT"
 name = "wasm-nm"
+readme = "./README.md"
+repository = "https://github.com/fitzgen/wasm-nm"
 version = "0.1.0"
 
 [[bin]]
