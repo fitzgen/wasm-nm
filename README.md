@@ -13,13 +13,13 @@ List the imported and exported symbols within a wasm file.
 
 To install the `wasm-nm` executable, run
 
-```text
+```
 $ cargo install wasm-nm
 ```
 
 For information on using the `wasm-nm` executable, run
 
-```text
+```
 $ wasm-nm --help
 ```
 
