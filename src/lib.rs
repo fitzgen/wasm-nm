@@ -66,8 +66,10 @@ dual licensed as above, without any additional terms or conditions.
 extern crate failure;
 extern crate parity_wasm;
 
-use parity_wasm::elements::{Deserialize, ExportEntry, ImportEntry, Module};
+use parity_wasm::elements::{Deserialize, FuncBody, ImportEntry, Internal, Module};
+use std::collections::HashMap;
 use std::fmt;
+use std::iter;
 use std::io;
 use std::slice;
 
@@ -81,8 +83,15 @@ struct WasmError(parity_wasm::elements::Error);
 pub struct Options {
     /// Should imported symbols be iterated over?
     pub imports: bool,
+
     /// Should exported symbols be iterated over?
     pub exports: bool,
+
+    /// Should private symbols be iterated over?
+    pub privates: bool,
+
+    /// Should the symbols' sizes be computed?
+    pub sizes: bool,
 }
 
 impl Default for Options {
@@ -90,6 +99,20 @@ impl Default for Options {
         Options {
             imports: true,
             exports: true,
+            privates: true,
+            sizes: false,
+        }
+    }
+}
+
+impl Options {
+    /// Construct options for iterating over *none* of the symbol kinds.
+    pub fn nothing() -> Options {
+        Options {
+            imports: false,
+            exports: false,
+            privates: false,
+            sizes: false,
         }
     }
 }
@@ -121,9 +144,24 @@ impl fmt::Debug for Symbols {
 impl Symbols {
     /// Iterate over the symbols.
     pub fn iter(&self) -> SymbolsIter {
+        // Find the set of function indices that are exported.
+        let exports = self.module
+            .export_section()
+            .map_or(HashMap::new(), |section| {
+                section
+                    .entries()
+                    .iter()
+                    .filter_map(|entry| match *entry.internal() {
+                        Internal::Function(idx) => Some((idx, entry.field())),
+                        _ => None,
+                    })
+                    .collect()
+            });
+
         SymbolsIter {
             symbols: self,
             state: SymbolsIterState::new(self),
+            exports,
         }
     }
 }
@@ -134,30 +172,23 @@ impl Symbols {
 pub struct SymbolsIter<'a> {
     symbols: &'a Symbols,
     state: SymbolsIterState<'a>,
+    exports: HashMap<u32, &'a str>,
 }
 
 #[derive(Debug)]
 enum SymbolsIterState<'a> {
     Imports(slice::Iter<'a, ImportEntry>),
-    Exports(slice::Iter<'a, ExportEntry>),
+    Functions(iter::Enumerate<slice::Iter<'a, FuncBody>>),
     Finished,
 }
 
 impl<'a> SymbolsIterState<'a> {
     fn new(symbols: &'a Symbols) -> SymbolsIterState<'a> {
-        if symbols.opts.imports {
-            if let Some(section) = symbols.module.import_section() {
-                return SymbolsIterState::Imports(section.entries().iter());
-            }
-        }
-
-        if symbols.opts.exports {
-            if let Some(section) = symbols.module.export_section() {
-                return SymbolsIterState::Exports(section.entries().iter());
-            }
-        }
-
-        SymbolsIterState::Finished
+        SymbolsIterState::Imports(if let Some(section) = symbols.module.import_section() {
+            section.entries().iter()
+        } else {
+            [].iter()
+        })
     }
 }
 
@@ -167,25 +198,42 @@ impl<'a> Iterator for SymbolsIter<'a> {
     fn next(&mut self) -> Option<Symbol<'a>> {
         loop {
             self.state = match self.state {
-                SymbolsIterState::Imports(ref mut imports) => match imports.next() {
-                    Some(import) => return Some(Symbol::Import(import.field())),
-                    None => if self.symbols.opts.exports {
-                        if let Some(section) = self.symbols.module.export_section() {
-                            SymbolsIterState::Exports(section.entries().iter())
-                        } else {
-                            SymbolsIterState::Finished
-                        }
-                    } else {
-                        SymbolsIterState::Finished
-                    }
-                },
-                SymbolsIterState::Exports(ref mut exports) => match exports.next() {
-                    Some(export) => return Some(Symbol::Export(export.field())),
-                    None => SymbolsIterState::Finished,
-                },
                 SymbolsIterState::Finished => return None,
+                SymbolsIterState::Imports(ref mut imports) => match (
+                    self.symbols.opts.imports,
+                    imports.next(),
+                ) {
+                    (true, Some(import)) => return Some(Symbol::Import(import.field())),
+                    (false, _) | (true, None) => SymbolsIterState::Functions(
+                        if let Some(section) = self.symbols.module.code_section() {
+                            section.bodies().iter().enumerate()
+                        } else {
+                            [].iter().enumerate()
+                        },
+                    ),
+                },
+                SymbolsIterState::Functions(ref mut functions) => {
+                    let (i, function) = match functions.next() {
+                        Some(next) => next,
+                        _ => break,
+                    };
+                    match (i, function, self.exports.get(&(i as u32))) {
+                        (_, _, Some(export)) if self.symbols.opts.exports => {
+                            return Some(Symbol::Export(export));
+                        }
+                        (i, _function, None) if self.symbols.opts.privates => {
+                            return Some(Symbol::Private(i as u32, None));
+                        }
+                        _ => {
+                            continue;
+                        }
+                    }
+                }
             };
         }
+
+        self.state = SymbolsIterState::Finished;
+        None
     }
 }
 
@@ -197,12 +245,18 @@ pub enum Symbol<'a> {
 
     /// An exported symbol.
     Export(&'a str),
+
+    /// A private, internal function, and its name from the names section, if
+    /// that information is present.
+    Private(u32, Option<&'a str>),
 }
 
 impl<'a> fmt::Display for Symbol<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
             Symbol::Import(s) | Symbol::Export(s) => f.write_str(s),
+            Symbol::Private(_, Some(name)) => f.write_str(name),
+            Symbol::Private(i, None) => write!(f, "function[{}]", i),
         }
     }
 }

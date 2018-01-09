@@ -8,7 +8,7 @@ pub fn fluxions(x: usize) -> usize {
 #[no_mangle]
 pub fn quicksilver(_: usize) {}
 
-extern {
+extern "C" {
     fn imported(x: usize) -> usize;
 }
 
