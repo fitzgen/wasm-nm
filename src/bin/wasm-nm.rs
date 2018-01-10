@@ -78,8 +78,8 @@ fn parse_args() -> clap::ArgMatches<'static> {
 wasm-nm displays imported and exported symbols in a wasm file.
 
 Each symbol is preceded by its symbol type: \"i\" for imported symbols, \"e\"
-for exported symbols, and \"p\" for private symbols. Alternatively, the -j \
-flag can be used to avoid any prefixes.\
+for exported symbols, and \"p\" for private symbols. Alternatively, the -j flag
+can be used to avoid any prefixes.
 ",
         )
         .arg(

@@ -1,121 +1,121 @@
 imported
-function[0]
-function[1]
-function[2]
-function[3]
-function[4]
-function[5]
-function[6]
-function[7]
-function[8]
-function[9]
-function[10]
-function[11]
-function[12]
-function[13]
-function[14]
-function[15]
-function[16]
-function[17]
-function[18]
-function[19]
-function[20]
-function[21]
-function[22]
-function[23]
-function[24]
-function[25]
-function[26]
-function[27]
-function[28]
-function[29]
-function[30]
-function[31]
-function[32]
-function[33]
-function[34]
-function[35]
-function[36]
-function[37]
-function[38]
-function[39]
-function[40]
-function[41]
-function[42]
-function[43]
-function[44]
-function[45]
-function[46]
-function[47]
-function[48]
-function[49]
-function[50]
-function[51]
-function[52]
-function[53]
-function[54]
-function[55]
-function[56]
-function[57]
-function[58]
-function[59]
-function[60]
-function[61]
-function[62]
-function[63]
-function[64]
-function[65]
-function[66]
-function[67]
-function[68]
-function[69]
-function[70]
-function[71]
-function[72]
-function[73]
-function[74]
-function[75]
-function[76]
-function[77]
-function[78]
-function[79]
-function[80]
-function[81]
-function[82]
-function[83]
-function[84]
-function[85]
-function[86]
-function[87]
-function[88]
-function[89]
-function[90]
-function[91]
-function[92]
-function[93]
-function[94]
-function[95]
-function[96]
-function[97]
-function[98]
-function[99]
-function[100]
-function[101]
-function[102]
-function[103]
-function[104]
-function[105]
-function[106]
-function[107]
-function[108]
-function[109]
-function[110]
-function[111]
-function[112]
-function[113]
-function[114]
+imported
+std::rt::lang_start::{{closure}}::h4a005ebb0fff14ce
+core::ops::function::FnOnce::call_once::hfec8c71b0834a396
+core::ptr::drop_in_place::haec76f9ee14b5e35
+<alloc::vec::Vec<T>>::reserve_exact::h12cd11688004ca4b
+<alloc::vec::Vec<T>>::shrink_to_fit::hab6a6becd91a127f
+<alloc::vec::Vec<T>>::extend_from_slice::h55be1b9e3931382f
+<alloc::raw_vec::RawVec<T, A>>::double::hcb678cb3bee53ad7
+<&'a T as core::fmt::Debug>::fmt::h4a5a01d440d30f67
+std::sys_common::at_exit_imp::cleanup::h3cbcee67c7d8b406
+std::sys_common::thread_info::THREAD_INFO::__getit::h5520c8a621a7d891
+std::sys_common::thread_local::StaticKey::lazy_init::h0e26fad736fa74a6
+core::result::unwrap_failed::h0cf9629bbd9645fe
+core::result::unwrap_failed::h1db66428c6b7f087
+core::result::unwrap_failed::haeeb2813da2027ba
+core::result::unwrap_failed::hbd0e0d830f79de1a
+core::result::unwrap_failed::hec2c782fbf0c355c
+std::error::Error::cause::h70c0e8f8d884244e
+std::error::Error::type_id::h0597eb3374c8b596
+<std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as std::error::Error>::description::heae9827b7cd47142
+<std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Display>::fmt::h4b11ad51403e1489
+std::io::Write::write_all::h1e22c345ee74bd20
+std::io::Write::write_fmt::he1152d8bae99d65b
+core::ptr::drop_in_place::h2bdbaf674f0aee8f
+<std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Debug>::fmt::h710025ce6ce2de1f
+core::ptr::drop_in_place::h65247ce7e4709129
+core::fmt::Write::write_char::hb47c60d960f24025
+core::fmt::Write::write_fmt::hd6115c3c6bf97ff1
+core::ptr::drop_in_place::hcd2d108484489df3
+<std::io::Write::write_fmt::Adaptor<'a, T> as core::fmt::Write>::write_str::hfb203f95b9e34b22
+core::ptr::drop_in_place::h8f35c23f76abee51
+std::io::error::Error::new::h381dae13d0f2cf0d
+<alloc::arc::Arc<T>>::drop_slow::h933c0bf4db588528
+<T as core::any::Any>::get_type_id::hcf276e0529accfd4
+core::fmt::Write::write_fmt::hf94ca4b41923d8fb
+core::ptr::drop_in_place::ha05a3a5b67481aad
+<&'a T as core::fmt::Debug>::fmt::h14a99863a6b1c9da
+std::thread::Thread::new::h84c5176c2b27bd8a
+<std::ffi::c_str::NulError as core::fmt::Debug>::fmt::hebab1e70554ff965
+core::ptr::drop_in_place::h9caabe1a35ed262c
+core::ptr::drop_in_place::heb39250dd62cb94b
+std::thread::local::os::destroy_value::h742a7e47335460b8
+std::thread::local::os::destroy_value::hb42727554f684767
+std::thread::local::os::destroy_value::hc4fcd9b61f79c3b7
+std::sys_common::backtrace::__rust_begin_short_backtrace::hb9f3968452a7d8db
+<std::sys_common::poison::PoisonError<T> as core::fmt::Debug>::fmt::h9ca8a5a1dc3f81be
+std::sys_common::memchr::fallback::memchr::hb120b04790bd1299
+std::sys_common::util::dumb_print::hd5898bb2eda1120a
+std::panicking::begin_panic::hdbf9a3586ca2db9b
+std::panicking::rust_panic_with_hook::h52b2005910c55f47
+std::panicking::default_hook::{{closure}}::h02c960b6aa5cdc20
+core::ptr::drop_in_place::h47ff60385eded4a9
+std::io::impls::<impl std::io::Write for &'a mut W>::write::h624a99b6a307d797
+std::io::impls::<impl std::io::Write for &'a mut W>::flush::hc3482b034a6a4db7
+std::io::impls::<impl std::io::Write for &'a mut W>::write_all::h91b04ea836f43923
+std::io::impls::<impl std::io::Write for &'a mut W>::write_fmt::h52f014db65414dc6
+std::panicking::LOCAL_STDERR::__getit::ha4b201e512ab3c66
+core::ptr::drop_in_place::h87473f3cb67ee6ec
+<T as core::any::Any>::get_type_id::hba485be8a12c6119
+std::panicking::update_panic_count::PANIC_COUNT::__getit::h4ec790dd4d7f8dcf
+std::panicking::begin_panic_fmt::h47786a9a66db0de4
+std::panicking::begin_panic::h1edc0d1d8a3585ff
+_ZN4core3ptr13drop_in_place17h9f6f00b5724f00f3E.899
+<&'a T as core::fmt::Debug>::fmt::h2a3f4d7a59ce4687
+<&'a T as core::fmt::Display>::fmt::he00d690ee0dec7e2
+<core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::hc94f70c97a18b983
+<core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::he86ec787baa105aa
+<core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h00448269bcfc4360
+<core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h41014a1452ce9a71
+<core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h44cd5c7a6bd3fa24
+<core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h9e92886134f68c4d
+<std::thread::local::AccessError as core::fmt::Debug>::fmt::h38e9d4b028b59070
+<std::thread::local::LocalKey<T>>::try_with::hfce1cc9f36b426d0
+memcpy
+dlmalloc::dlmalloc::Dlmalloc::malloc::hb37c2fafc9847520
+dlmalloc::dlmalloc::Dlmalloc::unlink_large_chunk::h9160cadc87bd9b58
+dlmalloc::dlmalloc::Dlmalloc::insert_large_chunk::h95b574ef6905303c
+dlmalloc::dlmalloc::Dlmalloc::realloc::h8a4bcf906f9969a3
+dlmalloc::dlmalloc::Dlmalloc::dispose_chunk::hfb236c21060aea2f
+dlmalloc::dlmalloc::Dlmalloc::free::h8185738df2a87b48
+<alloc::vec::Vec<T>>::extend_from_slice::hf187e100f0904e3c
+<alloc::raw_vec::RawVec<T, A>>::allocate_in::hf473635a28c2f60f
+core::fmt::num::<impl core::fmt::Debug for usize>::fmt::he64994cf6f0229ef
+core::fmt::num::<impl core::fmt::Display for usize>::fmt::h2bb1c7279256f668
+core::fmt::num::<impl core::fmt::Display for u32>::fmt::h7507ae0df89e6b5a
+<core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::hf28d5d031ad32011
+<core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::h12aa346679c88006
+<core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h0a74b8dc2e247efa
+core::fmt::ArgumentV1::show_usize::h80e90b29feae30e4
+core::fmt::write::h914fcaafc6fb200a
+core::ptr::drop_in_place::h6f534c8c21ea70ac
+core::fmt::Formatter::pad_integral::h2f2f83d99c318b28
+core::fmt::Formatter::pad_integral::{{closure}}::h260e793666777f47
+core::fmt::Formatter::pad::hdb2be9f507201bd1
+<str as core::fmt::Debug>::fmt::h0cf4ea19d7121472
+<char as core::fmt::Debug>::fmt::h21dd5ee27649cffd
+<&'a T as core::fmt::Display>::fmt::hdef34141bbace6f9
+<&'a mut I as core::iter::iterator::Iterator>::next::h71d732fe2f55b336
+core::str::slice_error_fail::h09ffe3974e261c49
+<core::fmt::builders::PadAdapter<'a> as core::fmt::Write>::write_str::he73b859f871181bc
+core::fmt::builders::DebugTuple::field::h0824d538bf53adcc
+core::fmt::Write::write_char::hcbedcd1253b69125
+core::fmt::Write::write_fmt::he646b8663fbc84c9
+core::ptr::drop_in_place::hea7e6e6e99670c73
+core::panicking::panic::h39c17c1237fb0327
+core::panicking::panic_bounds_check::h92acfa905e83b8ae
+core::panicking::panic_fmt::he30a33b74d717e0e
+<core::ops::range::Range<Idx> as core::fmt::Debug>::fmt::h7ea97092a23a5a63
+core::option::expect_failed::h6ffc8268d6be0c2f
+<core::cell::BorrowError as core::fmt::Debug>::fmt::h34889acdacce7e2a
+<core::cell::BorrowMutError as core::fmt::Debug>::fmt::hff9567832a7eda60
+core::char_private::is_printable::hc5280a2390ffc7fc
+core::char_private::check::hd971f4210d6de5c9
+core::slice::slice_index_len_fail::he20ea683b5502d9a
+core::slice::slice_index_order_fail::h2c23bc1ce370b6f1
 fluxions
 quicksilver
-function[117]
-function[118]
-function[119]
+main
+hello::main::h2b8b138267cb20a6
+__wasm_nullptr

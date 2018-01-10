@@ -2,7 +2,7 @@
 
 [![](https://docs.rs/wasm-nm/badge.svg)](https://docs.rs/wasm-nm/) [![](https://img.shields.io/crates/v/wasm-nm.svg)](https://crates.io/crates/wasm-nm) [![](https://img.shields.io/crates/d/wasm-nm.png)](https://crates.io/crates/wasm-nm) [![Build Status](https://travis-ci.org/fitzgen/wasm-nm.png?branch=master)](https://travis-ci.org/fitzgen/wasm-nm)
 
-List the imported and exported symbols within a wasm file.
+List the symbols within a wasm file.
 
 * [Library](#library)
 * [Executable](#executable)
@@ -62,21 +62,18 @@ dual licensed as above, without any additional terms or conditions.
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-#[macro_use]
 extern crate failure;
 extern crate parity_wasm;
 
-use parity_wasm::elements::{Deserialize, FuncBody, ImportEntry, Internal, Module};
+use parity_wasm::elements::{Deserialize, FuncBody, ImportEntry, Internal, Module, Section,
+                            VarUint32, VarUint7};
+use std::borrow::Cow;
 use std::collections::HashMap;
 use std::fmt;
 use std::iter;
 use std::io;
 use std::slice;
-
-// Needed until https://github.com/paritytech/parity-wasm/issues/125 is fixed.
-#[derive(Debug, Fail)]
-#[fail(display = "{:?}", _0)]
-struct WasmError(parity_wasm::elements::Error);
+use std::str;
 
 /// Options for controlling which symbols are iterated over.
 #[derive(Clone, Debug)]
@@ -122,7 +119,7 @@ pub fn symbols<R>(opts: Options, reader: &mut R) -> Result<Symbols, failure::Err
 where
     R: io::Read,
 {
-    let module = Module::deserialize(reader).map_err(WasmError)?;
+    let module = Module::deserialize(reader)?;
     Ok(Symbols { opts, module })
 }
 
@@ -139,6 +136,37 @@ impl fmt::Debug for Symbols {
             .field("module", &"...")
             .finish()
     }
+}
+
+// Cribbed from wasm-gc; waiting for the name section support to be upstreamed
+// into parity-wasm.
+fn decode_name_map<'a>(mut bytes: &'a [u8]) -> Result<HashMap<u32, Cow<'a, str>>, failure::Error> {
+    while !bytes.is_empty() {
+        let name_type = u8::from(VarUint7::deserialize(&mut bytes)?);
+        let name_payload_len = u32::from(VarUint32::deserialize(&mut bytes)?);
+        let (these_bytes, rest) = bytes.split_at(name_payload_len as usize);
+
+        if name_type == 1 {
+            bytes = these_bytes;
+        } else {
+            bytes = rest;
+            continue;
+        }
+
+        let count = u32::from(VarUint32::deserialize(&mut bytes)?);
+        let mut names = HashMap::with_capacity(count as usize);
+        for _ in 0..count {
+            let index = u32::from(VarUint32::deserialize(&mut bytes)?);
+            let name_len = u32::from(VarUint32::deserialize(&mut bytes)?);
+            let (name, rest) = bytes.split_at(name_len as usize);
+            bytes = rest;
+            let name = String::from_utf8_lossy(name);
+            names.insert(index, name);
+        }
+        return Ok(names);
+    }
+
+    return Ok(Default::default());
 }
 
 impl Symbols {
@@ -158,10 +186,21 @@ impl Symbols {
                     .collect()
             });
 
+        let names = self.module
+            .sections()
+            .iter()
+            .filter_map(|section| match *section {
+                Section::Custom(ref custom) if custom.name() == "name" => Some(custom),
+                _ => None,
+            })
+            .next()
+            .and_then(|name_section| decode_name_map(name_section.payload()).ok());
+
         SymbolsIter {
             symbols: self,
             state: SymbolsIterState::new(self),
             exports,
+            names,
         }
     }
 }
@@ -173,6 +212,7 @@ pub struct SymbolsIter<'a> {
     symbols: &'a Symbols,
     state: SymbolsIterState<'a>,
     exports: HashMap<u32, &'a str>,
+    names: Option<HashMap<u32, Cow<'a, str>>>,
 }
 
 #[derive(Debug)]
@@ -222,7 +262,9 @@ impl<'a> Iterator for SymbolsIter<'a> {
                             return Some(Symbol::Export(export));
                         }
                         (i, _function, None) if self.symbols.opts.privates => {
-                            return Some(Symbol::Private(i as u32, None));
+                            let i = i as u32;
+                            let name = self.names.as_ref().and_then(|names| names.get(&i).cloned());
+                            return Some(Symbol::Private(i, name));
                         }
                         _ => {
                             continue;
@@ -248,14 +290,14 @@ pub enum Symbol<'a> {
 
     /// A private, internal function, and its name from the names section, if
     /// that information is present.
-    Private(u32, Option<&'a str>),
+    Private(u32, Option<Cow<'a, str>>),
 }
 
 impl<'a> fmt::Display for Symbol<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
             Symbol::Import(s) | Symbol::Export(s) => f.write_str(s),
-            Symbol::Private(_, Some(name)) => f.write_str(name),
+            Symbol::Private(_, Some(ref name)) => f.write_str(&name),
             Symbol::Private(i, None) => write!(f, "function[{}]", i),
         }
     }

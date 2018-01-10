@@ -1,121 +1,121 @@
 i imported
-p function[0]
-p function[1]
-p function[2]
-p function[3]
-p function[4]
-p function[5]
-p function[6]
-p function[7]
-p function[8]
-p function[9]
-p function[10]
-p function[11]
-p function[12]
-p function[13]
-p function[14]
-p function[15]
-p function[16]
-p function[17]
-p function[18]
-p function[19]
-p function[20]
-p function[21]
-p function[22]
-p function[23]
-p function[24]
-p function[25]
-p function[26]
-p function[27]
-p function[28]
-p function[29]
-p function[30]
-p function[31]
-p function[32]
-p function[33]
-p function[34]
-p function[35]
-p function[36]
-p function[37]
-p function[38]
-p function[39]
-p function[40]
-p function[41]
-p function[42]
-p function[43]
-p function[44]
-p function[45]
-p function[46]
-p function[47]
-p function[48]
-p function[49]
-p function[50]
-p function[51]
-p function[52]
-p function[53]
-p function[54]
-p function[55]
-p function[56]
-p function[57]
-p function[58]
-p function[59]
-p function[60]
-p function[61]
-p function[62]
-p function[63]
-p function[64]
-p function[65]
-p function[66]
-p function[67]
-p function[68]
-p function[69]
-p function[70]
-p function[71]
-p function[72]
-p function[73]
-p function[74]
-p function[75]
-p function[76]
-p function[77]
-p function[78]
-p function[79]
-p function[80]
-p function[81]
-p function[82]
-p function[83]
-p function[84]
-p function[85]
-p function[86]
-p function[87]
-p function[88]
-p function[89]
-p function[90]
-p function[91]
-p function[92]
-p function[93]
-p function[94]
-p function[95]
-p function[96]
-p function[97]
-p function[98]
-p function[99]
-p function[100]
-p function[101]
-p function[102]
-p function[103]
-p function[104]
-p function[105]
-p function[106]
-p function[107]
-p function[108]
-p function[109]
-p function[110]
-p function[111]
-p function[112]
-p function[113]
-p function[114]
+p imported
+p std::rt::lang_start::{{closure}}::h4a005ebb0fff14ce
+p core::ops::function::FnOnce::call_once::hfec8c71b0834a396
+p core::ptr::drop_in_place::haec76f9ee14b5e35
+p <alloc::vec::Vec<T>>::reserve_exact::h12cd11688004ca4b
+p <alloc::vec::Vec<T>>::shrink_to_fit::hab6a6becd91a127f
+p <alloc::vec::Vec<T>>::extend_from_slice::h55be1b9e3931382f
+p <alloc::raw_vec::RawVec<T, A>>::double::hcb678cb3bee53ad7
+p <&'a T as core::fmt::Debug>::fmt::h4a5a01d440d30f67
+p std::sys_common::at_exit_imp::cleanup::h3cbcee67c7d8b406
+p std::sys_common::thread_info::THREAD_INFO::__getit::h5520c8a621a7d891
+p std::sys_common::thread_local::StaticKey::lazy_init::h0e26fad736fa74a6
+p core::result::unwrap_failed::h0cf9629bbd9645fe
+p core::result::unwrap_failed::h1db66428c6b7f087
+p core::result::unwrap_failed::haeeb2813da2027ba
+p core::result::unwrap_failed::hbd0e0d830f79de1a
+p core::result::unwrap_failed::hec2c782fbf0c355c
+p std::error::Error::cause::h70c0e8f8d884244e
+p std::error::Error::type_id::h0597eb3374c8b596
+p <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as std::error::Error>::description::heae9827b7cd47142
+p <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Display>::fmt::h4b11ad51403e1489
+p std::io::Write::write_all::h1e22c345ee74bd20
+p std::io::Write::write_fmt::he1152d8bae99d65b
+p core::ptr::drop_in_place::h2bdbaf674f0aee8f
+p <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Debug>::fmt::h710025ce6ce2de1f
+p core::ptr::drop_in_place::h65247ce7e4709129
+p core::fmt::Write::write_char::hb47c60d960f24025
+p core::fmt::Write::write_fmt::hd6115c3c6bf97ff1
+p core::ptr::drop_in_place::hcd2d108484489df3
+p <std::io::Write::write_fmt::Adaptor<'a, T> as core::fmt::Write>::write_str::hfb203f95b9e34b22
+p core::ptr::drop_in_place::h8f35c23f76abee51
+p std::io::error::Error::new::h381dae13d0f2cf0d
+p <alloc::arc::Arc<T>>::drop_slow::h933c0bf4db588528
+p <T as core::any::Any>::get_type_id::hcf276e0529accfd4
+p core::fmt::Write::write_fmt::hf94ca4b41923d8fb
+p core::ptr::drop_in_place::ha05a3a5b67481aad
+p <&'a T as core::fmt::Debug>::fmt::h14a99863a6b1c9da
+p std::thread::Thread::new::h84c5176c2b27bd8a
+p <std::ffi::c_str::NulError as core::fmt::Debug>::fmt::hebab1e70554ff965
+p core::ptr::drop_in_place::h9caabe1a35ed262c
+p core::ptr::drop_in_place::heb39250dd62cb94b
+p std::thread::local::os::destroy_value::h742a7e47335460b8
+p std::thread::local::os::destroy_value::hb42727554f684767
+p std::thread::local::os::destroy_value::hc4fcd9b61f79c3b7
+p std::sys_common::backtrace::__rust_begin_short_backtrace::hb9f3968452a7d8db
+p <std::sys_common::poison::PoisonError<T> as core::fmt::Debug>::fmt::h9ca8a5a1dc3f81be
+p std::sys_common::memchr::fallback::memchr::hb120b04790bd1299
+p std::sys_common::util::dumb_print::hd5898bb2eda1120a
+p std::panicking::begin_panic::hdbf9a3586ca2db9b
+p std::panicking::rust_panic_with_hook::h52b2005910c55f47
+p std::panicking::default_hook::{{closure}}::h02c960b6aa5cdc20
+p core::ptr::drop_in_place::h47ff60385eded4a9
+p std::io::impls::<impl std::io::Write for &'a mut W>::write::h624a99b6a307d797
+p std::io::impls::<impl std::io::Write for &'a mut W>::flush::hc3482b034a6a4db7
+p std::io::impls::<impl std::io::Write for &'a mut W>::write_all::h91b04ea836f43923
+p std::io::impls::<impl std::io::Write for &'a mut W>::write_fmt::h52f014db65414dc6
+p std::panicking::LOCAL_STDERR::__getit::ha4b201e512ab3c66
+p core::ptr::drop_in_place::h87473f3cb67ee6ec
+p <T as core::any::Any>::get_type_id::hba485be8a12c6119
+p std::panicking::update_panic_count::PANIC_COUNT::__getit::h4ec790dd4d7f8dcf
+p std::panicking::begin_panic_fmt::h47786a9a66db0de4
+p std::panicking::begin_panic::h1edc0d1d8a3585ff
+p _ZN4core3ptr13drop_in_place17h9f6f00b5724f00f3E.899
+p <&'a T as core::fmt::Debug>::fmt::h2a3f4d7a59ce4687
+p <&'a T as core::fmt::Display>::fmt::he00d690ee0dec7e2
+p <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::hc94f70c97a18b983
+p <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::he86ec787baa105aa
+p <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h00448269bcfc4360
+p <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h41014a1452ce9a71
+p <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h44cd5c7a6bd3fa24
+p <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h9e92886134f68c4d
+p <std::thread::local::AccessError as core::fmt::Debug>::fmt::h38e9d4b028b59070
+p <std::thread::local::LocalKey<T>>::try_with::hfce1cc9f36b426d0
+p memcpy
+p dlmalloc::dlmalloc::Dlmalloc::malloc::hb37c2fafc9847520
+p dlmalloc::dlmalloc::Dlmalloc::unlink_large_chunk::h9160cadc87bd9b58
+p dlmalloc::dlmalloc::Dlmalloc::insert_large_chunk::h95b574ef6905303c
+p dlmalloc::dlmalloc::Dlmalloc::realloc::h8a4bcf906f9969a3
+p dlmalloc::dlmalloc::Dlmalloc::dispose_chunk::hfb236c21060aea2f
+p dlmalloc::dlmalloc::Dlmalloc::free::h8185738df2a87b48
+p <alloc::vec::Vec<T>>::extend_from_slice::hf187e100f0904e3c
+p <alloc::raw_vec::RawVec<T, A>>::allocate_in::hf473635a28c2f60f
+p core::fmt::num::<impl core::fmt::Debug for usize>::fmt::he64994cf6f0229ef
+p core::fmt::num::<impl core::fmt::Display for usize>::fmt::h2bb1c7279256f668
+p core::fmt::num::<impl core::fmt::Display for u32>::fmt::h7507ae0df89e6b5a
+p <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::hf28d5d031ad32011
+p <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::h12aa346679c88006
+p <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h0a74b8dc2e247efa
+p core::fmt::ArgumentV1::show_usize::h80e90b29feae30e4
+p core::fmt::write::h914fcaafc6fb200a
+p core::ptr::drop_in_place::h6f534c8c21ea70ac
+p core::fmt::Formatter::pad_integral::h2f2f83d99c318b28
+p core::fmt::Formatter::pad_integral::{{closure}}::h260e793666777f47
+p core::fmt::Formatter::pad::hdb2be9f507201bd1
+p <str as core::fmt::Debug>::fmt::h0cf4ea19d7121472
+p <char as core::fmt::Debug>::fmt::h21dd5ee27649cffd
+p <&'a T as core::fmt::Display>::fmt::hdef34141bbace6f9
+p <&'a mut I as core::iter::iterator::Iterator>::next::h71d732fe2f55b336
+p core::str::slice_error_fail::h09ffe3974e261c49
+p <core::fmt::builders::PadAdapter<'a> as core::fmt::Write>::write_str::he73b859f871181bc
+p core::fmt::builders::DebugTuple::field::h0824d538bf53adcc
+p core::fmt::Write::write_char::hcbedcd1253b69125
+p core::fmt::Write::write_fmt::he646b8663fbc84c9
+p core::ptr::drop_in_place::hea7e6e6e99670c73
+p core::panicking::panic::h39c17c1237fb0327
+p core::panicking::panic_bounds_check::h92acfa905e83b8ae
+p core::panicking::panic_fmt::he30a33b74d717e0e
+p <core::ops::range::Range<Idx> as core::fmt::Debug>::fmt::h7ea97092a23a5a63
+p core::option::expect_failed::h6ffc8268d6be0c2f
+p <core::cell::BorrowError as core::fmt::Debug>::fmt::h34889acdacce7e2a
+p <core::cell::BorrowMutError as core::fmt::Debug>::fmt::hff9567832a7eda60
+p core::char_private::is_printable::hc5280a2390ffc7fc
+p core::char_private::check::hd971f4210d6de5c9
+p core::slice::slice_index_len_fail::he20ea683b5502d9a
+p core::slice::slice_index_order_fail::h2c23bc1ce370b6f1
 e fluxions
 e quicksilver
-p function[117]
-p function[118]
-p function[119]
+p main
+p hello::main::h2b8b138267cb20a6
+p __wasm_nullptr

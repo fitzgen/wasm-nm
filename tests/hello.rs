@@ -12,4 +12,5 @@ extern "C" {
     fn imported(x: usize) -> usize;
 }
 
-fn main() {}
+#[no_mangle]
+pub fn main() {}
