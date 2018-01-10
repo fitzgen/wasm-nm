@@ -28,6 +28,10 @@ fn try_main() -> Result<(), ()> {
         opts.privates = true;
     }
 
+    if matches.is_present("sizes") {
+        opts.sizes = true;
+    }
+
     let mut any_errors = false;
     for path in matches.values_of("file").unwrap() {
         if let Err(e) = print_symbols_in_one(path, opts.clone(), &matches) {
@@ -51,15 +55,24 @@ fn print_symbols_in_one(
     let file = fs::File::open(path)?;
     let mut file = io::BufReader::new(file);
 
+    let print_sizes = opts.sizes;
     let symbols = wasm_nm::symbols(opts, &mut file)?;
 
     let just_symbols = matches.is_present("just_symbols");
     for sym in symbols.iter() {
+        if print_sizes {
+            match sym {
+                wasm_nm::Symbol::Import { .. } => print!("0 "),
+                wasm_nm::Symbol::Export { size, .. } | wasm_nm::Symbol::Private { size, .. } => {
+                    print!("{} ", size.unwrap_or(0))
+                }
+            }
+        }
         if !just_symbols {
             match sym {
-                wasm_nm::Symbol::Import(_) => print!("i "),
-                wasm_nm::Symbol::Export(_) => print!("e "),
-                wasm_nm::Symbol::Private(..) => print!("p "),
+                wasm_nm::Symbol::Import { .. } => print!("i "),
+                wasm_nm::Symbol::Export { .. } => print!("e "),
+                wasm_nm::Symbol::Private { .. } => print!("p "),
             }
         }
         println!("{}", sym);
@@ -92,6 +105,11 @@ can be used to avoid any prefixes.
             clap::Arg::with_name("just_symbols")
                 .short("j")
                 .help("Just display the symbol names (no type)."),
+        )
+        .arg(
+            clap::Arg::with_name("sizes")
+                .short("z")
+                .help("Display symbol size (in bytes)."),
         )
         .arg(
             clap::Arg::with_name("only_imports")

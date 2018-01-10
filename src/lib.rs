@@ -23,6 +23,28 @@ For information on using the `wasm-nm` executable, run
 $ wasm-nm --help
 ```
 
+### Using `wasm-nm` as a Size Profiler
+
+`wasm-nm` can function as a rudimentary size profiler for `.wasm` files.
+
+The `-z` option enables printing a function's code size. The unix `sort` utility
+can be used to sort the symbols by size. The `rustfilt` utility can be used to
+demangle Rust symbols (`cargo install rustfilt`).
+
+```text
+$ wasm-nm -z path/to/something.wasm | sort -n -u -r | rustfilt | head
+3578 p std::panicking::begin_panic_fmt::h47786a9a66db0de4
+2078 p core::slice::slice_index_order_fail::h2c23bc1ce370b6f1
+1324 p core::ptr::drop_in_place::hcd2d108484489df3
+1268 p dlmalloc::dlmalloc::Dlmalloc::memalign::hee616eb0f35bbba8
+1253 p std::io::Write::write_all::h1e22c345ee74bd20
+1248 p core::fmt::num::<impl core::fmt::Debug for usize>::fmt::he64994cf6f0229ef
+1064 p dlmalloc::dlmalloc::Dlmalloc::insert_large_chunk::h95b574ef6905303c
+987 p dlmalloc::dlmalloc::Dlmalloc::dispose_chunk::hfb236c21060aea2f
+978 e allocate_mappings
+974 p source_map_mappings_wasm_api::LAST_ERROR::__getit::h52f017cac8e76e23
+```
+
 ## Library
 
 To use `wasm-nm` as a library, add this to your `Cargo.toml`:
@@ -66,7 +88,7 @@ extern crate failure;
 extern crate parity_wasm;
 
 use parity_wasm::elements::{Deserialize, FuncBody, ImportEntry, Internal, Module, Section,
-                            VarUint32, VarUint7};
+                            Serialize, VarUint32, VarUint7};
 use std::borrow::Cow;
 use std::collections::HashMap;
 use std::fmt;
@@ -232,6 +254,19 @@ impl<'a> SymbolsIterState<'a> {
     }
 }
 
+fn function_size(index: usize, module: &Module) -> Option<usize> {
+    module
+        .code_section()
+        .and_then(|section| section.bodies().iter().nth(index))
+        .and_then(|body| {
+            let mut encoded = vec![];
+            if let Err(_) = body.code().clone().serialize(&mut encoded) {
+                return None;
+            }
+            Some(encoded.len())
+        })
+}
+
 impl<'a> Iterator for SymbolsIter<'a> {
     type Item = Symbol<'a>;
 
@@ -243,7 +278,11 @@ impl<'a> Iterator for SymbolsIter<'a> {
                     self.symbols.opts.imports,
                     imports.next(),
                 ) {
-                    (true, Some(import)) => return Some(Symbol::Import(import.field())),
+                    (true, Some(import)) => {
+                        return Some(Symbol::Import {
+                            name: import.field(),
+                        })
+                    }
                     (false, _) | (true, None) => SymbolsIterState::Functions(
                         if let Some(section) = self.symbols.module.code_section() {
                             section.bodies().iter().enumerate()
@@ -258,13 +297,28 @@ impl<'a> Iterator for SymbolsIter<'a> {
                         _ => break,
                     };
                     match (i, function, self.exports.get(&(i as u32))) {
-                        (_, _, Some(export)) if self.symbols.opts.exports => {
-                            return Some(Symbol::Export(export));
+                        (i, _, Some(export)) if self.symbols.opts.exports => {
+                            return Some(Symbol::Export {
+                                name: export,
+                                size: if self.symbols.opts.sizes {
+                                    function_size(i, &self.symbols.module)
+                                } else {
+                                    None
+                                },
+                            });
                         }
                         (i, _function, None) if self.symbols.opts.privates => {
                             let i = i as u32;
                             let name = self.names.as_ref().and_then(|names| names.get(&i).cloned());
-                            return Some(Symbol::Private(i, name));
+                            return Some(Symbol::Private {
+                                index: i,
+                                name,
+                                size: if self.symbols.opts.sizes {
+                                    function_size(i as usize, &self.symbols.module)
+                                } else {
+                                    None
+                                },
+                            });
                         }
                         _ => {
                             continue;
@@ -283,22 +337,39 @@ impl<'a> Iterator for SymbolsIter<'a> {
 #[derive(Clone, Debug)]
 pub enum Symbol<'a> {
     /// An imported symbol.
-    Import(&'a str),
+    Import {
+        /// The symbol's name.
+        name: &'a str,
+    },
 
     /// An exported symbol.
-    Export(&'a str),
+    Export {
+        /// The symbol's name.
+        name: &'a str,
+        /// The symbol's size, if available.
+        size: Option<usize>,
+    },
 
-    /// A private, internal function, and its name from the names section, if
-    /// that information is present.
-    Private(u32, Option<Cow<'a, str>>),
+    /// A private function that is not exported.
+    Private {
+        /// The function table index for this private function.
+        index: u32,
+        /// The name from the name section, if that information exists.
+        name: Option<Cow<'a, str>>,
+        /// The symbol's size, if available.
+        size: Option<usize>,
+    },
 }
 
 impl<'a> fmt::Display for Symbol<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
-            Symbol::Import(s) | Symbol::Export(s) => f.write_str(s),
-            Symbol::Private(_, Some(ref name)) => f.write_str(&name),
-            Symbol::Private(i, None) => write!(f, "function[{}]", i),
+            Symbol::Import { name } | Symbol::Export { name, .. } => f.write_str(name),
+            Symbol::Private {
+                name: Some(ref name),
+                ..
+            } => f.write_str(&name),
+            Symbol::Private { index, .. } => write!(f, "function[{}]", index),
         }
     }
 }

@@ -23,6 +23,28 @@ For information on using the `wasm-nm` executable, run
 $ wasm-nm --help
 ```
 
+#### Using `wasm-nm` as a Size Profiler
+
+`wasm-nm` can function as a rudimentary size profiler for `.wasm` files.
+
+The `-z` option enables printing a function's code size. The unix `sort` utility
+can be used to sort the symbols by size. The `rustfilt` utility can be used to
+demangle Rust symbols (`cargo install rustfilt`).
+
+```
+$ wasm-nm -z path/to/something.wasm | sort -n -u -r | rustfilt | head
+3578 p std::panicking::begin_panic_fmt::h47786a9a66db0de4
+2078 p core::slice::slice_index_order_fail::h2c23bc1ce370b6f1
+1324 p core::ptr::drop_in_place::hcd2d108484489df3
+1268 p dlmalloc::dlmalloc::Dlmalloc::memalign::hee616eb0f35bbba8
+1253 p std::io::Write::write_all::h1e22c345ee74bd20
+1248 p core::fmt::num::<impl core::fmt::Debug for usize>::fmt::he64994cf6f0229ef
+1064 p dlmalloc::dlmalloc::Dlmalloc::insert_large_chunk::h95b574ef6905303c
+987 p dlmalloc::dlmalloc::Dlmalloc::dispose_chunk::hfb236c21060aea2f
+978 e allocate_mappings
+974 p source_map_mappings_wasm_api::LAST_ERROR::__getit::h52f017cac8e76e23
+```
+
 ### Library
 
 To use `wasm-nm` as a library, add this to your `Cargo.toml`:
