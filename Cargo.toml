@@ -6,7 +6,7 @@ license = "Apache-2.0/MIT"
 name = "wasm-nm"
 readme = "./README.md"
 repository = "https://github.com/fitzgen/wasm-nm"
-version = "0.2.0"
+version = "0.2.1"
 
 [[bin]]
 doc = false
