@@ -1,5 +1,4 @@
 i imported
-p imported
 p std::rt::lang_start::{{closure}}::h4a005ebb0fff14ce
 p core::ops::function::FnOnce::call_once::hfec8c71b0834a396
 p core::ptr::drop_in_place::haec76f9ee14b5e35
@@ -114,8 +113,9 @@ p core::char_private::is_printable::hc5280a2390ffc7fc
 p core::char_private::check::hd971f4210d6de5c9
 p core::slice::slice_index_len_fail::he20ea683b5502d9a
 p core::slice::slice_index_order_fail::h2c23bc1ce370b6f1
+p fluxions
 e fluxions
 e quicksilver
-p main
 p hello::main::h2b8b138267cb20a6
 p __wasm_nullptr
+p _start

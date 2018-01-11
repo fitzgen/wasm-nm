@@ -1,5 +1,4 @@
 i imported
-p imported
 p _ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17h4a005ebb0fff14ceE
 p _ZN4core3ops8function6FnOnce9call_once17hfec8c71b0834a396E
 p _ZN4core3ptr13drop_in_place17haec76f9ee14b5e35E
@@ -72,6 +71,7 @@ p _ZN96_$LT$core..fmt..Write..write_fmt..Adapter$LT$$u27$a$C$$u20$T$GT$$u20$as$u
 p _ZN96_$LT$core..fmt..Write..write_fmt..Adapter$LT$$u27$a$C$$u20$T$GT$$u20$as$u20$core..fmt..Write$GT$9write_str17h9e92886134f68c4dE
 p _ZN68_$LT$std..thread..local..AccessError$u20$as$u20$core..fmt..Debug$GT$3fmt17h38e9d4b028b59070E
 p _ZN46_$LT$std..thread..local..LocalKey$LT$T$GT$$GT$8try_with17hfce1cc9f36b426d0E
+p __muldi3
 e __muldi3
 e __multi3
 e __mulosi4
@@ -137,7 +137,6 @@ e __powidf2
 e __subsf3
 e __subdf3
 e rust_eh_personality
-p _ZN8dlmalloc8dlmalloc8Dlmalloc6malloc17hb37c2fafc9847520E
 p _ZN8dlmalloc8dlmalloc8Dlmalloc18unlink_large_chunk17h9160cadc87bd9b58E
 p _ZN8dlmalloc8dlmalloc8Dlmalloc18insert_large_chunk17h95b574ef6905303cE
 p _ZN8dlmalloc8dlmalloc8Dlmalloc7realloc17h8a4bcf906f9969a3E
@@ -178,8 +177,9 @@ p _ZN4core12char_private12is_printable17hc5280a2390ffc7fcE
 p _ZN4core12char_private5check17hd971f4210d6de5c9E
 p _ZN4core5slice20slice_index_len_fail17he20ea683b5502d9aE
 p _ZN4core5slice22slice_index_order_fail17h2c23bc1ce370b6f1E
+p fluxions
 e fluxions
 e quicksilver
 e main
-p _ZN5hello4main17h2b8b138267cb20a6E
 p __wasm_nullptr
+p _start

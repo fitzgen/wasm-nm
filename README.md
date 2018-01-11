@@ -33,16 +33,16 @@ demangle Rust symbols (`cargo install rustfilt`).
 
 ```
 $ wasm-nm -z path/to/something.wasm | sort -n -u -r | rustfilt | head
-3578 p std::panicking::begin_panic_fmt::h47786a9a66db0de4
-2078 p core::slice::slice_index_order_fail::h2c23bc1ce370b6f1
-1324 p core::ptr::drop_in_place::hcd2d108484489df3
-1268 p dlmalloc::dlmalloc::Dlmalloc::memalign::hee616eb0f35bbba8
-1253 p std::io::Write::write_all::h1e22c345ee74bd20
-1248 p core::fmt::num::<impl core::fmt::Debug for usize>::fmt::he64994cf6f0229ef
-1064 p dlmalloc::dlmalloc::Dlmalloc::insert_large_chunk::h95b574ef6905303c
-987 p dlmalloc::dlmalloc::Dlmalloc::dispose_chunk::hfb236c21060aea2f
-978 e allocate_mappings
-974 p source_map_mappings_wasm_api::LAST_ERROR::__getit::h52f017cac8e76e23
+3578 p dlmalloc::dlmalloc::Dlmalloc::malloc::hb37c2fafc9847520
+3307 e quicksilver
+1427 p <str as core::fmt::Debug>::fmt::h0cf4ea19d7121472
+1287 p std::panicking::rust_panic_with_hook::h52b2005910c55f47
+1268 p core::fmt::Formatter::pad::hdb2be9f507201bd1
+1248 p core::str::slice_error_fail::h09ffe3974e261c49
+1064 p core::fmt::write::h914fcaafc6fb200a
+987 p core::fmt::Formatter::pad_integral::h2f2f83d99c318b28
+945 p <&'a T as core::fmt::Debug>::fmt::h4a5a01d440d30f67
+918 p dlmalloc::dlmalloc::Dlmalloc::free::h8185738df2a87b48
 ```
 
 ### Library

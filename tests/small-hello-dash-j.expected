@@ -1,5 +1,4 @@
 imported
-imported
 std::rt::lang_start::{{closure}}::h4a005ebb0fff14ce
 core::ops::function::FnOnce::call_once::hfec8c71b0834a396
 core::ptr::drop_in_place::haec76f9ee14b5e35
@@ -115,7 +114,8 @@ core::char_private::check::hd971f4210d6de5c9
 core::slice::slice_index_len_fail::he20ea683b5502d9a
 core::slice::slice_index_order_fail::h2c23bc1ce370b6f1
 fluxions
+fluxions
 quicksilver
-main
 hello::main::h2b8b138267cb20a6
 __wasm_nullptr
+_start
